@@ -1,13 +1,17 @@
-import { Button } from "@/components/ui/button";
+import { UserButton } from "@clerk/nextjs";
 
 export default function DashboardPage() {
 
     return (
-        <>
+
+        <section className="flex items-center justify-center h-full gap-4">
+
             <h1 className="text-3xl text-green-500 " >Dashboard Page!</h1>
-            <Button >
-                Click in the Dashboard
-            </Button>
-        </>
+
+            <UserButton
+                afterSignOutUrl="/"
+            />
+
+        </section>
     )
 }
