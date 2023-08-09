@@ -5,11 +5,14 @@ import { cn } from "@/lib/utils";
 import { Montserrat } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const montserrat = Montserrat({ weight: "600", subsets: ["latin"] });
 
 
 const Sidebar = () => {
+
+    const pathname = usePathname();
 
     return (
 
@@ -34,7 +37,9 @@ const Sidebar = () => {
                                 <Link
                                     href={link.href}
                                     key={link.href}
-                                    className="flex justify-start w-full p-3 text-sm font-medium group cursor-pointer hover:text-white hover:bg-white/10 rounded-lg transition"
+                                    className={cn("flex justify-start w-full p-3 text-sm font-medium group cursor-pointer hover:text-white hover:bg-white/10 rounded-lg transition",
+                                    pathname === link.href ? " text-white bg-white/10" : "text-zinc-400"
+                                    )}
                                 >
                                     <span className="flex flex-1 items-center" >
                                         <link.icon className={cn("h-5 w-5 mr-3", link.color)} />
