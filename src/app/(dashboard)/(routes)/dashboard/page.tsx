@@ -1,4 +1,3 @@
-import { UserButton } from "@clerk/nextjs";
 
 export default function DashboardPage() {
 
@@ -7,10 +6,6 @@ export default function DashboardPage() {
         <section className="flex items-center justify-center h-full gap-4">
 
             <h1 className="text-3xl text-green-500 " >Dashboard Page!</h1>
-
-            <UserButton
-                afterSignOutUrl="/"
-            />
 
         </section>
     )
