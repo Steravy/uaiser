@@ -1,6 +1,6 @@
 'use client';
 
-import navLinks from "@/lib/nav-links";
+import { navLinks } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { Montserrat } from "next/font/google";
 import Image from "next/image";
@@ -38,7 +38,7 @@ const Sidebar = () => {
                                     href={link.href}
                                     key={link.href}
                                     className={cn("flex justify-start w-full p-3 text-sm font-medium group cursor-pointer hover:text-white hover:bg-white/10 rounded-lg transition",
-                                    pathname === link.href ? " text-white bg-white/10" : "text-zinc-400"
+                                        pathname === link.href ? " text-white bg-white/10" : "text-zinc-400"
                                     )}
                                 >
                                     <span className="flex flex-1 items-center" >
