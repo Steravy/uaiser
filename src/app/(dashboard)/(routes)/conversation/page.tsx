@@ -15,6 +15,9 @@ import * as z from "zod";
 import { formSchema } from "./constants";
 import Placeholder from "@/components/Placeholder";
 import Loader from "@/components/Loader";
+import { cn } from "@/lib/utils";
+import UserAvatar from "@/components/UserAvatar";
+import AIAvatar from "@/components/AIAvatar";
 
 const ConversationToolPage = () => {
 
@@ -124,9 +127,20 @@ const ConversationToolPage = () => {
                         {
                             messages.map(
                                 message => (
-                                    <p key={message.content} >
-                                        {message.content}
-                                    </p>
+                                    <div
+                                        key={message.content}
+                                        className={cn(
+                                            "p-8 w-full flex items-end gap-x-8 rounded-lg",
+                                            message.role === 'user' ? 'bg-white border border-black/10' : 'bg-muted'
+                                        )}
+                                    >
+                                        {message.role === 'user' ? <UserAvatar /> : <AIAvatar />}
+
+                                        <span className="text-sm" >
+                                            {message.content}
+                                        </span>
+
+                                    </div>
                                 )
                             )
                         }
