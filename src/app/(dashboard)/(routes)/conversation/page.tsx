@@ -14,6 +14,7 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { formSchema } from "./constants";
 import Placeholder from "@/components/Placeholder";
+import Loader from "@/components/Loader";
 
 const ConversationToolPage = () => {
 
@@ -104,6 +105,14 @@ const ConversationToolPage = () => {
                     </Form>
                 </article>
                 <article className="space-y-4 mt-4" >
+
+                    {
+                        isLoading && (
+                            <article className="w-full flex items-center justify-center p-8 rounded-lg bg-muted" >
+                                <Loader />
+                            </article>
+                        )
+                    }
 
                     {
                         messages.length === 0 && !isLoading && (
