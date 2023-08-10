@@ -4,9 +4,13 @@ import { Card } from "@/components/ui/card";
 import { tools } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import { ArrowRight } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 
 export default function DashboardPage() {
+
+    const router = useRouter();
+
 
     return (
 
@@ -28,6 +32,7 @@ export default function DashboardPage() {
                     tools.map(
                         tool => (
                             <Card
+                                onClick={() => router.push(tool.href)}
                                 key={tool.href}
                                 className="p-4 border-black/5 flex items-center justify-between hover:shadow-md transition cursor-pointer "
                             >
