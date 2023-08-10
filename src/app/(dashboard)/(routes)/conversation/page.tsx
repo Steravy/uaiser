@@ -13,6 +13,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { formSchema } from "./constants";
+import Placeholder from "@/components/Placeholder";
 
 const ConversationToolPage = () => {
 
@@ -103,6 +104,13 @@ const ConversationToolPage = () => {
                     </Form>
                 </article>
                 <article className="space-y-4 mt-4" >
+
+                    {
+                        messages.length === 0 && !isLoading && (
+                            <Placeholder label="Start typing to chat with Uaiser AI" />
+                        )
+
+                    }
                     <div className="flex flex-col-reverse gap-y-4" >
                         {
                             messages.map(
