@@ -1,33 +1,32 @@
 'use client';
 
-import AIAvatar from "@/components/AIAvatar";
 import Heading from "@/components/Heading";
 import Loader from "@/components/Loader";
 import Placeholder from "@/components/Placeholder";
-import UserAvatar from "@/components/UserAvatar";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { cn } from "@/lib/utils";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from 'axios';
 import { ImageIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { ChatCompletionRequestMessage } from "openai";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { formSchema } from "./constants";
+import { amountOptions, formSchema, resolutionOptions } from "./constants";
 
 const ImageGeneratorToolPage = () => {
 
-    const [messages, setMessages] = useState<ChatCompletionRequestMessage[]>([]);
     const router = useRouter();
+    const [images, setImages] = useState<string[]>([]);
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
             prompt: '',
+            resolution: '512x512',
+            amount: '1'
         }
     })
 
@@ -37,23 +36,17 @@ const ImageGeneratorToolPage = () => {
 
         try {
 
-            // new message from user
-            const userMessage: ChatCompletionRequestMessage = {
-                role: 'user',
-                content: data.prompt
-            }
+            setImages([])
 
-            // ALL THE PREVIOUS MESSAGES AND NEW MESSAGE
-            const newMessages: ChatCompletionRequestMessage[] = [...messages, userMessage];
+            console.log(data)
 
             // MAKING API REQUEST TO CHAT WITH MODEL
             const response = await axios
-                .post('/api/conversation', {
-                    messages: newMessages
-                });
+                .post('/api/image', data);
 
-            // UPDATE MESSAGES HISTORY
-            setMessages(currentMessages => [...currentMessages, userMessage, response.data])
+            const urls = response.data.map((images: { url: string }) => images.url);
+
+            setImages(urls);
 
             // RESET FORM VALUES
             form.reset();
@@ -74,7 +67,7 @@ const ImageGeneratorToolPage = () => {
         <section>
             <Heading
                 title='Image Generator'
-                description="Generate images from text prompts"
+                description="Paint pictures with your words."
                 icon={ImageIcon}
                 iconColor="text-pink-700"
                 bgColor="bg-pink-700/10"
@@ -89,18 +82,79 @@ const ImageGeneratorToolPage = () => {
                             <FormField
                                 name="prompt"
                                 render={({ field }) =>
-                                    <FormItem className="col-span-12 lg:col-span-10" >
+                                    <FormItem className="col-span-12 lg:col-span-6" >
                                         <FormControl className="p-0 m-0" >
                                             <Input
                                                 className="border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent px-2"
                                                 disabled={isLoading}
-                                                placeholder="How deep is the ocean?"
+                                                placeholder="A pitcure of a CLI app that generates README files"
                                                 {...field}
                                             />
                                         </FormControl>
                                     </FormItem>
                                 }
                             />
+
+                            <FormField
+                                control={form.control}
+                                name={'amount'}
+                                render={({ field }) => (
+                                    <FormItem className="col-span-12 lg:col-span-2" >
+                                        <Select
+                                            disabled={isLoading}
+                                            onValueChange={field.onChange}
+                                            value={field.value}
+                                            defaultValue={field.value}
+                                        >
+                                            <FormControl>
+                                                <SelectTrigger>
+                                                    <SelectValue defaultValue={field.value} />
+                                                </SelectTrigger>
+                                            </FormControl>
+                                            <SelectContent>
+                                                {
+                                                    amountOptions.map(option => (
+                                                        <SelectItem key={option.value} value={option.value} >
+                                                            {option.label}
+                                                        </SelectItem>
+                                                    ))
+                                                }
+                                            </SelectContent>
+                                        </Select>
+                                    </FormItem>
+                                )}
+                            />
+
+                            <FormField
+                                control={form.control}
+                                name={'resolution'}
+                                render={({ field }) => (
+                                    <FormItem className="col-span-12 lg:col-span-2" >
+                                        <Select
+                                            disabled={isLoading}
+                                            onValueChange={field.onChange}
+                                            value={field.value}
+                                            defaultValue={field.value}
+                                        >
+                                            <FormControl>
+                                                <SelectTrigger>
+                                                    <SelectValue defaultValue={field.value} />
+                                                </SelectTrigger>
+                                            </FormControl>
+                                            <SelectContent>
+                                                {
+                                                    resolutionOptions.map(option => (
+                                                        <SelectItem key={option.value} value={option.value} >
+                                                            {option.label}
+                                                        </SelectItem>
+                                                    ))
+                                                }
+                                            </SelectContent>
+                                        </Select>
+                                    </FormItem>
+                                )}
+                            />
+
                             <Button className="col-span-12 lg:col-span-2 w-full" disabled={isLoading}>
                                 Generate
                             </Button>
@@ -111,39 +165,21 @@ const ImageGeneratorToolPage = () => {
 
                     {
                         isLoading && (
-                            <article className="w-full flex items-center justify-center p-8 rounded-lg bg-muted" >
+                            <article className="p-20" >
                                 <Loader />
                             </article>
                         )
                     }
 
                     {
-                        messages.length === 0 && !isLoading && (
-                            <Placeholder label="Start typing to chat with Uaiser AI" />
+                        images.length === 0 && !isLoading && (
+                            <Placeholder label="Tell Uaiser what you him to generate!" />
                         )
 
                     }
-                    <div className="flex flex-col-reverse gap-y-4" >
-                        {
-                            messages.map(
-                                message => (
-                                    <div
-                                        key={message.content}
-                                        className={cn(
-                                            "p-8 w-full flex items-end gap-x-8 rounded-lg",
-                                            message.role === 'user' ? 'bg-white border border-black/10' : 'bg-muted'
-                                        )}
-                                    >
-                                        {message.role === 'user' ? <UserAvatar /> : <AIAvatar />}
 
-                                        <span className="text-sm" >
-                                            {message.content}
-                                        </span>
-
-                                    </div>
-                                )
-                            )
-                        }
+                    <div>
+                        Images will be rendered here
                     </div>
                 </article>
             </article>
