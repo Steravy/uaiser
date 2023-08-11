@@ -18,6 +18,7 @@ import Loader from "@/components/Loader";
 import { cn } from "@/lib/utils";
 import UserAvatar from "@/components/UserAvatar";
 import AIAvatar from "@/components/AIAvatar";
+import ReactMarkdown from "react-markdown";
 
 const CodeToolPage = () => {
 
@@ -136,9 +137,27 @@ const CodeToolPage = () => {
                                     >
                                         {message.role === 'user' ? <UserAvatar /> : <AIAvatar />}
 
-                                        <span className="text-sm" >
+                                        {/* <span className="text-sm" >
                                             {message.content}
-                                        </span>
+                                        </span> */}
+
+                                        <ReactMarkdown
+                                            components={{
+                                                pre: ({ node, ...props }) => (
+                                                    <div className="overflow-auto w-full my-2 bg-black/10 p-2 rounded-lg" >
+                                                        <pre {...props} />
+                                                    </div>
+                                                ),
+
+                                                code: ({ node, ...props }) => (
+                                                    <code className="bg-black/10 p-1 rounded-lg" {...props} />
+                                                )
+                                            }}
+
+                                            className="text-sm overflow-hidden leading-7"
+                                        >
+                                            {message.content || ''}
+                                        </ReactMarkdown>
 
                                     </div>
                                 )
