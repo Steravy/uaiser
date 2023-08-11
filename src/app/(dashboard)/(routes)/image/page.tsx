@@ -1,26 +1,25 @@
 'use client';
 
+import AIAvatar from "@/components/AIAvatar";
 import Heading from "@/components/Heading";
+import Loader from "@/components/Loader";
+import Placeholder from "@/components/Placeholder";
+import UserAvatar from "@/components/UserAvatar";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from 'axios';
-import { Code, MessageSquare } from "lucide-react";
+import { ImageIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { ChatCompletionRequestMessage } from "openai";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { formSchema } from "./constants";
-import Placeholder from "@/components/Placeholder";
-import Loader from "@/components/Loader";
-import { cn } from "@/lib/utils";
-import UserAvatar from "@/components/UserAvatar";
-import AIAvatar from "@/components/AIAvatar";
-import ReactMarkdown from "react-markdown";
 
-const CodeToolPage = () => {
+const ImageGeneratorToolPage = () => {
 
     const [messages, setMessages] = useState<ChatCompletionRequestMessage[]>([]);
     const router = useRouter();
@@ -49,7 +48,7 @@ const CodeToolPage = () => {
 
             // MAKING API REQUEST TO CHAT WITH MODEL
             const response = await axios
-                .post('/api/code', {
+                .post('/api/conversation', {
                     messages: newMessages
                 });
 
@@ -74,11 +73,11 @@ const CodeToolPage = () => {
 
         <section>
             <Heading
-                title='Code Generator'
-                description="Genetaye code using descriptive text."
-                icon={Code}
-                iconColor="text-green-700"
-                bgColor="bg-green-700/10"
+                title='Image Generator'
+                description="Generate images from text prompts"
+                icon={ImageIcon}
+                iconColor="text-pink-700"
+                bgColor="bg-pink-700/10"
             />
             <article className="px-4 lg:px-8" >
                 <article>
@@ -95,7 +94,7 @@ const CodeToolPage = () => {
                                             <Input
                                                 className="border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent px-2"
                                                 disabled={isLoading}
-                                                placeholder="Simple contact form using react and formik..."
+                                                placeholder="How deep is the ocean?"
                                                 {...field}
                                             />
                                         </FormControl>
@@ -137,27 +136,9 @@ const CodeToolPage = () => {
                                     >
                                         {message.role === 'user' ? <UserAvatar /> : <AIAvatar />}
 
-                                        {/* <span className="text-sm" >
+                                        <span className="text-sm" >
                                             {message.content}
-                                        </span> */}
-
-                                        <ReactMarkdown
-                                            components={{
-                                                pre: ({ node, ...props }) => (
-                                                    <div className="overflow-auto w-full my-2 bg-black/10 p-2 rounded-lg" >
-                                                        <pre {...props} />
-                                                    </div>
-                                                ),
-
-                                                code: ({ node, ...props }) => (
-                                                    <code className="bg-black/10 p-1 rounded-lg" {...props} />
-                                                )
-                                            }}
-
-                                            className="text-sm overflow-hidden leading-7"
-                                        >
-                                            {message.content || ''}
-                                        </ReactMarkdown>
+                                        </span>
 
                                     </div>
                                 )
@@ -170,4 +151,4 @@ const CodeToolPage = () => {
     )
 }
 
-export default CodeToolPage;
+export default ImageGeneratorToolPage;
