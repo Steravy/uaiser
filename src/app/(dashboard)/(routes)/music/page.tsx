@@ -109,9 +109,13 @@ const MusicGenerationToolPage = () => {
                         )
 
                     }
-                    <div>
-                        Music goes here
-                    </div>
+                    {
+                        song && (
+                            <audio controls className="w-full mt-8" >
+                                <source src={song} />
+                            </audio>
+                        )
+                    }
                 </article>
             </article>
         </section>

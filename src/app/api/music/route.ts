@@ -1,12 +1,10 @@
 import { auth } from "@clerk/nextjs";
 import { NextRequest, NextResponse } from "next/server";
-import { Configuration, OpenAIApi } from "openai";
+import Replicate from 'replicate';
 
-const openAiConfigurarion = new Configuration({
-    apiKey: process.env.OPENAI_API_KEY,
-});
-
-const openai = new OpenAIApi(openAiConfigurarion);
+const replicate = new Replicate({
+    auth: process.env.REPLICATE_API_TOKEN || ''
+})
 
 export async function POST(request: NextRequest) {
 
@@ -14,32 +12,33 @@ export async function POST(request: NextRequest) {
 
         const { userId } = auth();
         const body = await request.json();
-        const { messages } = body;
+        const { prompt } = body;
 
         // VALIDATION
 
         if (!userId)
             return new NextResponse("Missing user credentials", { status: 401, statusText: "UNAUTHORIZED" });
 
-        if (!openAiConfigurarion.apiKey)
-            return new NextResponse("Missing OpenAI API Key configuration ", { status: 500, statusText: "INTERNAL SERVER ERROR" });
+        if (!prompt)
+            return new NextResponse("Prompt are Required", { status: 400, statusText: "NOT FOUND" });
 
-        if (!messages)
-            return new NextResponse("Messages are Required", { status: 400, statusText: "NOT FOUND" });
+        // REQUEST TO REPLICATE
+        const output = await replicate.run(
+            "riffusion/riffusion:8cf61ea6c56afd61d8f5b9ffd14d7c216c0a93844ce2d82ac1c9ecc9c7f24e05",
+            {
+                input: {
+                    prompt_a: prompt
+                }
+            }
+        );
 
-        // REQUEST TO OPENAI
-        const response = await openai.createChatCompletion({
-            model: "gpt-3.5-turbo",
-            messages
-        })
-
-        // RETURN RESPONSE FROM OPENAI AI  MODEL
-        return NextResponse.json(response.data.choices[0].message);
+        // RETURN RESPONSE FROM REPLICATE
+        return NextResponse.json(output);
 
     } catch (error) {
 
-        console.log("[OPENAI_API_ERROR]", error);
-        return new NextResponse("OPENAI_API_ERROR", { status: 500, statusText: "INTERNAL SERVER ERROR" });
+        console.log("[REPLICATE_API_ERROR]", error);
+        return new NextResponse("Error while generating audio", { status: 500, statusText: "INTERNAL SERVER ERROR" });
     }
 
 }
