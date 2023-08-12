@@ -8,16 +8,16 @@ import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from 'axios';
-import { Music } from "lucide-react";
+import { Video } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { formSchema } from "./constants";
 
-const MusicGenerationToolPage = () => {
+const VideoGenerationToolPage = () => {
 
-    const [song, setSong] = useState<string>();
+    const [video, setVideo] = useState<string>();
     const router = useRouter();
 
     const form = useForm<z.infer<typeof formSchema>>({
@@ -33,13 +33,13 @@ const MusicGenerationToolPage = () => {
 
         try {
 
-            setSong(undefined);
+            setVideo(undefined);
 
             // MAKING API REQUEST TO CHAT WITH MODEL
             const response = await axios
-                .post('/api/music', data);
+                .post('/api/video', data);
 
-            setSong(response.data.audio)
+            setVideo(response.data[0])
             // RESET FORM VALUES
             form.reset();
 
@@ -58,11 +58,11 @@ const MusicGenerationToolPage = () => {
 
         <section>
             <Heading
-                title='Music Generator'
-                description="Create symphonies from your words."
-                icon={Music}
-                iconColor="text-emerald-500"
-                bgColor="bg-emerald-500/10"
+                title='Video Generator'
+                description="Create live motions from your words."
+                icon={Video}
+                iconColor="text-orange-700"
+                bgColor="bg-orange-700/10"
             />
             <article className="px-4 lg:px-8" >
                 <article>
@@ -79,7 +79,7 @@ const MusicGenerationToolPage = () => {
                                             <Input
                                                 className="border-0 outline-none focus-visible:ring-0 focus-visible:ring-transparent px-2"
                                                 disabled={isLoading}
-                                                placeholder="Heavy metal guittar solo..."
+                                                placeholder="A wolf playing eletric guittar..."
                                                 {...field}
                                             />
                                         </FormControl>
@@ -103,16 +103,16 @@ const MusicGenerationToolPage = () => {
                     }
 
                     {
-                        !song && !isLoading && (
-                            <Placeholder label="Tell Uaiser what do you want to hear!" />
+                        !video && !isLoading && (
+                            <Placeholder label="Waiting for you words to create the next big production" />
                         )
 
                     }
                     {
-                        song && (
-                            <audio controls className="w-full mt-8" >
-                                <source src={song} />
-                            </audio>
+                        video && (
+                            <video controls className="w-full mt-8 aspect-video rounded-lg border bg-black" >
+                                <source src={video} />
+                            </video>
                         )
                     }
                 </article>
@@ -121,4 +121,4 @@ const MusicGenerationToolPage = () => {
     )
 }
 
-export default MusicGenerationToolPage;
+export default VideoGenerationToolPage;
