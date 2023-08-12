@@ -30,17 +30,20 @@ const VideoGenerationToolPage = () => {
     const isLoading = form.formState.isSubmitting;
 
     const handleSubmit = async (data: z.infer<typeof formSchema>) => {
-
+        console.log("before axios")
         try {
 
             setVideo(undefined);
 
+            console.log("before axios")
             // MAKING API REQUEST TO CHAT WITH MODEL
             const response = await axios
                 .post('/api/video', data);
 
             setVideo(response.data[0])
             // RESET FORM VALUES
+
+            console.log(JSON.stringify(response.data, null, 2));
             form.reset();
 
         } catch (error: any) {
