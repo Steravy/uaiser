@@ -53,7 +53,7 @@ export const navLinks: NavLinks[] = [
 ]
 
 
-export const MAX_FREE_COUNTS = 5;
+export const FREE_LIMIT_RANGE = 5;
 
 export const tools = [
     {
