@@ -1,7 +1,7 @@
 import prismaDB from "@/lib/prismadb";
 import { auth } from "@clerk/nextjs";
 
-const increaseApiUsageLimit = async () => {
+const increaseUserApiUsageLimit = async () => {
 
     const { userId } = auth();
 
@@ -37,4 +37,4 @@ const increaseApiUsageLimit = async () => {
     }
 };
 
-export default increaseApiUsageLimit;
+export default increaseUserApiUsageLimit;
