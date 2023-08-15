@@ -1,3 +1,5 @@
+import increaseUserApiUsageLimit from "@/service/increase-api-usage-limit";
+import checkUserApiUsageLimit from "@/service/user-api-usage-limit";
 import { auth } from "@clerk/nextjs";
 import { NextRequest, NextResponse } from "next/server";
 import { ChatCompletionRequestMessage, Configuration, OpenAIApi } from "openai";
@@ -32,11 +34,21 @@ export async function POST(request: NextRequest) {
         if (!messages)
             return new NextResponse("Messages are Required", { status: 400, statusText: "NOT FOUND" });
 
+        //  CHECK USER API USAGE TO VERIFY IF SHOULD STILL USE THE APP WHILE IN FREE TRIAL
+        const inFreeTrial = await checkUserApiUsageLimit();
+
+        if (!inFreeTrial) {
+            return new NextResponse("Your free trial has expired!", { status: 403, statusText: "FORBIDDEN" });
+        }
+
         // REQUEST TO OPENAI
         const response = await openai.createChatCompletion({
             model: "gpt-3.5-turbo",
             messages: [templateMessage, ...messages]
         })
+
+        //  INCRESEASE USER API USAGE
+        await increaseUserApiUsageLimit();
 
         // RETURN RESPONSE FROM OPENAI AI  MODEL
         return NextResponse.json(response.data.choices[0].message);
