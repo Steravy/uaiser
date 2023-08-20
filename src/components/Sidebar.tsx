@@ -6,6 +6,7 @@ import { Montserrat } from "next/font/google";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import ApiUsageLimitCountDisplayer from "@/components/ApiUsageLimitCountDisplayer";
 
 const montserrat = Montserrat({ weight: "600", subsets: ["latin"] });
 
@@ -54,6 +55,7 @@ const Sidebar: React.FC<SidebarProps> = ({ userApiUsageLimitCount }) => {
                     }
                 </div>
             </article>
+            <ApiUsageLimitCountDisplayer userApiUsageLimitCount={userApiUsageLimitCount} />
         </article>
     )
 }
