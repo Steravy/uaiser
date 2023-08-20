@@ -27,7 +27,7 @@ const ApiUsageLimitCountDisplayer: React.FC<ApiUsageLimitCountDisplayerProps> = 
                                 value={(userApiUsageLimitCount / FREE_LIMIT_RANGE) * 100}
                             />
                         </div>
-                        <Button className="w-full" >
+                        <Button variant="premium" className="w-full" >
                             Upgrade
                             <Zap className="w-4 h-4 ml-2 fill-white" />
                         </Button>

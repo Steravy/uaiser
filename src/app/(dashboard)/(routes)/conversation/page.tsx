@@ -63,6 +63,7 @@ const ConversationToolPage = () => {
             console.log(error)
         } finally {
 
+            // rehydrate all server components and serve them with new fetched data, updated data
             router.refresh();
         }
 
