@@ -6,6 +6,7 @@ import Placeholder from "@/components/Placeholder";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useUpgradeToProModal } from "@/hooks/useUpgradeToProModal";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from 'axios';
 import { Video } from "lucide-react";
@@ -19,6 +20,8 @@ const VideoGenerationToolPage = () => {
 
     const [video, setVideo] = useState<string>();
     const router = useRouter();
+
+    const upgradeToProModal = useUpgradeToProModal();
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -47,8 +50,10 @@ const VideoGenerationToolPage = () => {
             form.reset();
 
         } catch (error: any) {
+
             //  OPEN PRO MODEL
-            console.log(error)
+            if (error?.response?.status === 403) upgradeToProModal.onOpen();
+
         } finally {
 
             router.refresh();

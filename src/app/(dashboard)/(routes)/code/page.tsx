@@ -1,29 +1,32 @@
 'use client';
 
+import AIAvatar from "@/components/AIAvatar";
 import Heading from "@/components/Heading";
+import Loader from "@/components/Loader";
+import Placeholder from "@/components/Placeholder";
+import UserAvatar from "@/components/UserAvatar";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useUpgradeToProModal } from "@/hooks/useUpgradeToProModal";
+import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from 'axios';
-import { Code, MessageSquare } from "lucide-react";
+import { Code } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { ChatCompletionRequestMessage } from "openai";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import ReactMarkdown from "react-markdown";
 import * as z from "zod";
 import { formSchema } from "./constants";
-import Placeholder from "@/components/Placeholder";
-import Loader from "@/components/Loader";
-import { cn } from "@/lib/utils";
-import UserAvatar from "@/components/UserAvatar";
-import AIAvatar from "@/components/AIAvatar";
-import ReactMarkdown from "react-markdown";
 
 const CodeToolPage = () => {
 
     const [messages, setMessages] = useState<ChatCompletionRequestMessage[]>([]);
     const router = useRouter();
+
+    const upgradeToProModal = useUpgradeToProModal();
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -61,7 +64,7 @@ const CodeToolPage = () => {
 
         } catch (error: any) {
             //  OPEN PRO MODEL
-            console.log(error)
+            if (error?.response?.status === 403) upgradeToProModal.onOpen();
         } finally {
 
             router.refresh();

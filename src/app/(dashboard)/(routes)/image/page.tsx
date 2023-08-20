@@ -8,6 +8,7 @@ import { Card, CardFooter } from "@/components/ui/card";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useUpgradeToProModal } from "@/hooks/useUpgradeToProModal";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from 'axios';
 import { Download, ImageIcon } from "lucide-react";
@@ -22,6 +23,8 @@ const ImageGeneratorToolPage = () => {
 
     const router = useRouter();
     const [images, setImages] = useState<string[]>([]);
+
+    const upgradeToProModal = useUpgradeToProModal();
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -54,8 +57,10 @@ const ImageGeneratorToolPage = () => {
             form.reset();
 
         } catch (error: any) {
+
             //  OPEN PRO MODEL
-            console.log(error)
+            if (error?.response?.status === 403) upgradeToProModal.onOpen();
+
         } finally {
 
             router.refresh();
