@@ -9,8 +9,11 @@ import { usePathname } from "next/navigation";
 
 const montserrat = Montserrat({ weight: "600", subsets: ["latin"] });
 
+interface SidebarProps {
+    userApiUsageLimitCount: number;
+}
 
-const Sidebar = () => {
+const Sidebar: React.FC<SidebarProps> = ({ userApiUsageLimitCount }) => {
 
     const pathname = usePathname();
 

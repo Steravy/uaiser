@@ -1,14 +1,17 @@
 import Sidebar from "@/components/Sidebar";
 import Navbar from "@/components/navbar/Navbar";
+import getUserApiUsageLimitCount from "@/service/get-api-usage-limit-count";
 
-const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
+const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
+
+    const userApiUsageLimitCount = await getUserApiUsageLimitCount();
 
     return (
 
         <section className="h-full relative" >
 
             <aside className="h-full md:w-72 hidden md:flex md:flex-col md:fixed md:inset-y-0 z-30 bg-gray-900" >
-                <Sidebar />
+                <Sidebar userApiUsageLimitCount={userApiUsageLimitCount} />
             </aside>
 
             <main className="md:pl-72" >
