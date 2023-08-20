@@ -1,11 +1,12 @@
 'use client';
 
-import { FREE_LIMIT_RANGE } from "@/lib/constants";
-import ClientWrapper from "./ClientWrapper";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { Button } from "@/components/ui/button";
+import { useUpgradeToProModal } from "@/hooks/useUpgradeToProModal";
+import { FREE_LIMIT_RANGE } from "@/lib/constants";
 import { Zap } from "lucide-react";
+import ClientWrapper from "./ClientWrapper";
 
 interface ApiUsageLimitCountDisplayerProps {
 
@@ -13,6 +14,8 @@ interface ApiUsageLimitCountDisplayerProps {
 }
 
 const ApiUsageLimitCountDisplayer: React.FC<ApiUsageLimitCountDisplayerProps> = ({ userApiUsageLimitCount }) => {
+
+    const proModal = useUpgradeToProModal();
 
     return (
 
@@ -29,7 +32,11 @@ const ApiUsageLimitCountDisplayer: React.FC<ApiUsageLimitCountDisplayerProps> = 
                                 value={(userApiUsageLimitCount / FREE_LIMIT_RANGE) * 100}
                             />
                         </div>
-                        <Button variant="premium" className="w-full" >
+                        <Button
+                            variant="premium"
+                            className="w-full"
+                            onClick={proModal.onOpen}
+                        >
                             Upgrade
                             <Zap className="w-4 h-4 ml-2 fill-white" />
                         </Button>

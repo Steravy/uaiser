@@ -18,11 +18,14 @@ import Loader from "@/components/Loader";
 import { cn } from "@/lib/utils";
 import UserAvatar from "@/components/UserAvatar";
 import AIAvatar from "@/components/AIAvatar";
+import { useUpgradeToProModal } from "@/hooks/useUpgradeToProModal";
 
 const ConversationToolPage = () => {
 
     const [messages, setMessages] = useState<ChatCompletionRequestMessage[]>([]);
     const router = useRouter();
+
+    const upgradeToProModal = useUpgradeToProModal();
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -59,12 +62,15 @@ const ConversationToolPage = () => {
             form.reset();
 
         } catch (error: any) {
+
             //  OPEN PRO MODEL
-            console.log(error)
+            if (error?.response?.status === 403) upgradeToProModal.onOpen();
+
         } finally {
 
             // rehydrate all server components and serve them with new fetched data, updated data
             router.refresh();
+
         }
 
     };
