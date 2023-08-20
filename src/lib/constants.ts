@@ -64,6 +64,13 @@ export const tools = [
         bgColor: "bg-violet-500/10",
     },
     {
+        label: 'Code Generation',
+        icon: Code,
+        color: "text-green-700",
+        bgColor: "bg-green-700/10",
+        href: '/code',
+    },
+    {
         label: 'Music Generation',
         icon: Music,
         href: '/music',
@@ -84,11 +91,5 @@ export const tools = [
         bgColor: "bg-orange-700/10",
         href: '/video',
     },
-    {
-        label: 'Code Generation',
-        icon: Code,
-        color: "text-green-700",
-        bgColor: "bg-green-700/10",
-        href: '/code',
-    },
+
 ];
