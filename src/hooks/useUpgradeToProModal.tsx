@@ -8,7 +8,7 @@ interface useUpgradeToProModalStore {
 }
 
 export const useUpgradeToProModal = create<useUpgradeToProModalStore>((set) => ({
-    isOpen: false,
+    isOpen: true,
     onOpen: () => set(() => ({ isOpen: true })),
     onClose: () => set(() => ({ isOpen: false })),
 }));

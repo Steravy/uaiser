@@ -1,3 +1,5 @@
+'use client';
+
 import { FREE_LIMIT_RANGE } from "@/lib/constants";
 import ClientWrapper from "./ClientWrapper";
 import { Card, CardContent } from "@/components/ui/card";
