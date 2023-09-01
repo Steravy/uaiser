@@ -1,5 +1,5 @@
-import increaseUserApiUsageLimit from "@/service/increase-api-usage-limit";
-import checkUserApiUsageLimit from "@/service/user-api-usage-limit";
+import increaseUserApiUsageLimit from "@/providers/increase-api-usage-limit";
+import checkUserApiUsageLimit from "@/providers/user-api-usage-limit";
 import { auth } from "@clerk/nextjs";
 import { NextRequest, NextResponse } from "next/server";
 import { Configuration, OpenAIApi } from "openai";

@@ -1,5 +1,5 @@
 
-import getUserApiUsageLimitCount from "@/service/get-api-usage-limit-count";
+import getUserApiUsageLimitCount from "@/providers/get-api-usage-limit-count";
 import { UserButton } from "@clerk/nextjs";
 import MobileSideBar from "../MobileSideBar";
 

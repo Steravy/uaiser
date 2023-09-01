@@ -1,7 +1,7 @@
 import { auth, currentUser } from '@clerk/nextjs';
 
 import { NextRequest, NextResponse } from 'next/server';
-import { stripe } from '@/service/stripe-payment-service';
+import { stripe } from '@/providers/stripe-payment-service';
 import prismaDB from '@/lib/prismadb';
 
 import { appAbsoluteUrl } from '@/lib/utils';

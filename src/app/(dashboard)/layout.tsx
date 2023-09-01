@@ -1,6 +1,6 @@
 import Sidebar from "@/components/Sidebar";
 import Navbar from "@/components/navbar/Navbar";
-import getUserApiUsageLimitCount from "@/service/get-api-usage-limit-count";
+import getUserApiUsageLimitCount from "@/providers/get-api-usage-limit-count";
 
 const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
 
