@@ -1,14 +1,15 @@
 'use client';
 
-import { useUpgradeToProModal } from "@/hooks/useUpgradeToProModal";
-import ClientWrapper from "./ClientWrapper"
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
-import { tools } from "@/lib/constants";
-import { Card } from "./ui/card";
-import { cn } from "@/lib/utils";
-import { Check, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { useUpgradeToProModal } from "@/hooks/useUpgradeToProModal";
+import { tools } from "@/lib/constants";
+import { cn } from "@/lib/utils";
+import axios from "axios";
+import { Check, Zap } from "lucide-react";
+import ClientWrapper from "./ClientWrapper";
+import { Card } from "./ui/card";
 
 
 type Props = {}
@@ -16,6 +17,19 @@ type Props = {}
 const UpgradeToProModal = (props: Props) => {
 
     const proModal = useUpgradeToProModal();
+
+    const handleSubscriptions = async () => {
+
+        try {
+
+            const response = await axios.get("/api/stripe");
+
+            window.location.href = response.data.url;
+        } catch (error) {
+
+            console.log(error, "STRIPE ERROR");
+        }
+    }
 
     return (
 
