@@ -8,6 +8,7 @@ import { tools } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import axios from "axios";
 import { Check, Zap } from "lucide-react";
+import { useState } from "react";
 import ClientWrapper from "./ClientWrapper";
 import { Card } from "./ui/card";
 
@@ -17,17 +18,22 @@ type Props = {}
 const UpgradeToProModal = (props: Props) => {
 
     const proModal = useUpgradeToProModal();
+    const [loading, setLoading] = useState<boolean>(false);
 
     const handleSubscriptions = async () => {
 
         try {
 
+            setLoading(true);
             const response = await axios.get("/api/stripe");
 
             window.location.href = response.data.url;
         } catch (error) {
 
             console.log(error, "STRIPE ERROR");
+        } finally {
+
+            setLoading(false);
         }
     }
 
@@ -63,6 +69,7 @@ const UpgradeToProModal = (props: Props) => {
                     </DialogHeader>
                     <DialogFooter>
                         <Button
+                            onClick={handleSubscriptions}
                             size="lg"
                             variant="premium"
                             className="w-full focus:outline-0 focus:border-0"
