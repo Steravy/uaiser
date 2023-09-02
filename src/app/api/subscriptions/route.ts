@@ -37,7 +37,7 @@ export async function GET(request: NextRequest) {
             return new NextResponse(JSON.stringify({ url: stripeSession.url }));
         }
 
-        // If user is not subscribed, redirect to subscribe/checkout
+        // If user is not subscribed, redirect to subscribe/checkout to subscribe for the first time
         const stripeSession = await stripe.checkout.sessions.create({
             success_url: redirectToSettingsPage,
             cancel_url: redirectToSettingsPage,
