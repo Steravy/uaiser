@@ -8,13 +8,13 @@ import { stripe } from "@/providers/stripe-payment-service";
 export async function POST(request: NextRequest) {
 
     const body = await request.text();
-    const signature = request.headers.get("Stripe-Signature") as string;
+    const signature = headers().get("Stripe-Signature") as string;
 
-    let event: Stripe.Event;
+    let stripeEvent: Stripe.Event;
 
     try {
 
-        event = stripe.webhooks.constructEvent(
+        stripeEvent = stripe.webhooks.constructEvent(
             body,
             signature,
             process.env.STRIPE_WEBHOOK_SECRET!
@@ -31,11 +31,9 @@ export async function POST(request: NextRequest) {
         )
     }
 
-    const session = event.data.object as Stripe.Checkout.Session;
+    const session = stripeEvent.data.object as Stripe.Checkout.Session;
 
-    if (event.type === "checkout.session.completed") {
-
-        const userSubscription = await stripe.subscriptions.retrieve(session.subscription as string);
+    if (stripeEvent.type === "checkout.session.completed") {
 
         if (!session?.metadata?.userId) {
             return new NextResponse(
@@ -43,6 +41,8 @@ export async function POST(request: NextRequest) {
                 { status: 401, statusText: "UNAUTHORIZED" }
             )
         };
+
+        const userSubscription = await stripe.subscriptions.retrieve(session.subscription as string);
 
         await prismaDB.userSubscription.create({
             data: {
@@ -56,7 +56,7 @@ export async function POST(request: NextRequest) {
 
     }
 
-    if (event.type === "invoice.payment_succeeded") {
+    if (stripeEvent.type === "invoice.payment_succeeded") {
 
         const userSubscription = await stripe.subscriptions.retrieve(session.subscription as string);
 
