@@ -11,6 +11,7 @@ import { Check, Zap } from "lucide-react";
 import { useState } from "react";
 import ClientWrapper from "./ClientWrapper";
 import { Card } from "./ui/card";
+import toast from "react-hot-toast";
 
 
 type Props = {}
@@ -30,6 +31,7 @@ const UpgradeToProModal = (props: Props) => {
             window.location.href = response.data.url;
         } catch (error) {
 
+            toast.error("Something went wrong!");
             console.log(error, "STRIPE ERROR");
         } finally {
 

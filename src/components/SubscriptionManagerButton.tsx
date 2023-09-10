@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import axios from "axios";
 import { Zap } from "lucide-react";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 interface SubscriptionManagerButtonProps {
     isProMember: boolean;
@@ -25,6 +26,7 @@ const SubscriptionManagerButton: React.FC<SubscriptionManagerButtonProps> = ({ i
         } catch (error: any) {
 
             console.log("BILLING ERROR", error);
+            toast.error("Something went wrong!");
         } finally {
 
             setLoading(false);
