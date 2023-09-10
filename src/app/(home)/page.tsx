@@ -15,7 +15,6 @@ const LandingPage = () => {
                 <Button>Register</Button>
             </Link>
 
-
         </section>
     )
 }

@@ -1,11 +1,10 @@
 import { auth, currentUser } from '@clerk/nextjs';
 
-import { NextRequest, NextResponse } from 'next/server';
-import { stripe } from '@/providers/stripe-payment-service';
 import prismaDB from '@/lib/prismadb';
+import { stripe } from '@/providers/stripe-payment-service';
+import { NextRequest, NextResponse } from 'next/server';
 
 import { appAbsoluteUrl } from '@/lib/utils';
-import { UserSubscription } from '@prisma/client';
 
 const redirectToSettingsPage = appAbsoluteUrl('/settings');
 
