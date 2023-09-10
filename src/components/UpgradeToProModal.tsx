@@ -18,13 +18,13 @@ type Props = {}
 const UpgradeToProModal = (props: Props) => {
 
     const proModal = useUpgradeToProModal();
-    const [loading, setLoading] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const handleSubscriptions = async () => {
 
         try {
 
-            setLoading(true);
+            setIsLoading(true);
             const response = await axios.get("/api/stripe");
 
             window.location.href = response.data.url;
@@ -33,7 +33,7 @@ const UpgradeToProModal = (props: Props) => {
             console.log(error, "STRIPE ERROR");
         } finally {
 
-            setLoading(false);
+            setIsLoading(false);
         }
     }
 
@@ -69,6 +69,7 @@ const UpgradeToProModal = (props: Props) => {
                     </DialogHeader>
                     <DialogFooter>
                         <Button
+                            disabled={isLoading}
                             onClick={handleSubscriptions}
                             size="lg"
                             variant="premium"
