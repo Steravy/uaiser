@@ -4,6 +4,7 @@ import { Nunito } from 'next/font/google'
 import { ClerkProvider } from '@clerk/nextjs'
 import UpgradeToProModal from '@/components/UpgradeToProModal'
 import AlertModal from '@/components/AlertModal'
+import ChatBox from '@/components/ChatBox'
 
 const nunito = Nunito({ subsets: ['latin'] })
 
@@ -20,6 +21,7 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
+        <ChatBox />
         <body className={nunito.className}>
           <UpgradeToProModal />
           <AlertModal />
