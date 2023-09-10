@@ -1,14 +1,22 @@
+import HomePageHeroSection from "@/components/HomePageHeroSection";
 import HomePageNavbar from "@/components/navbar/HomePageNavbar";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import { cn } from "@/lib/utils";
+import { Montserrat } from "next/font/google";
+
+const montserrat = Montserrat({
+    subsets: ["latin"],
+})
+
 
 const LandingPage = () => {
 
+
     return (
 
-        <section className="h-full" >
+        <section className={cn("h-full", montserrat.className)} >
 
             <HomePageNavbar />
+            <HomePageHeroSection />
 
         </section>
     )
