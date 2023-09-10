@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { Nunito } from 'next/font/google'
 import { ClerkProvider } from '@clerk/nextjs'
 import UpgradeToProModal from '@/components/UpgradeToProModal'
+import AlertModal from '@/components/AlertModal'
 
 const nunito = Nunito({ subsets: ['latin'] })
 
@@ -21,6 +22,7 @@ export default function RootLayout({
       <html lang="en">
         <body className={nunito.className}>
           <UpgradeToProModal />
+          <AlertModal />
           {children}
         </body>
       </html>

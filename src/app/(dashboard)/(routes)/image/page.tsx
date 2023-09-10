@@ -18,6 +18,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { amountOptions, formSchema, resolutionOptions } from "./constants";
+import toast from "react-hot-toast";
 
 const ImageGeneratorToolPage = () => {
 
@@ -59,7 +60,13 @@ const ImageGeneratorToolPage = () => {
         } catch (error: any) {
 
             //  OPEN PRO MODEL
-            if (error?.response?.status === 403) upgradeToProModal.onOpen();
+            if (error?.response?.status === 403) {
+
+                upgradeToProModal.onOpen();
+            } else {
+
+                toast.error("Something went wrong!");
+            }
 
         } finally {
 

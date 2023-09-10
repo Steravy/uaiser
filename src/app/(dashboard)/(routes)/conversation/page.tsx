@@ -1,9 +1,15 @@
 'use client';
 
+import AIAvatar from "@/components/AIAvatar";
 import Heading from "@/components/Heading";
+import Loader from "@/components/Loader";
+import Placeholder from "@/components/Placeholder";
+import UserAvatar from "@/components/UserAvatar";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useUpgradeToProModal } from "@/hooks/useUpgradeToProModal";
+import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from 'axios';
 import { MessageSquare } from "lucide-react";
@@ -13,12 +19,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { formSchema } from "./constants";
-import Placeholder from "@/components/Placeholder";
-import Loader from "@/components/Loader";
-import { cn } from "@/lib/utils";
-import UserAvatar from "@/components/UserAvatar";
-import AIAvatar from "@/components/AIAvatar";
-import { useUpgradeToProModal } from "@/hooks/useUpgradeToProModal";
+import toast from "react-hot-toast";
 
 const ConversationToolPage = () => {
 
@@ -39,7 +40,6 @@ const ConversationToolPage = () => {
     const handleSubmit = async (data: z.infer<typeof formSchema>) => {
 
         try {
-
             // new message from user
             const userMessage: ChatCompletionRequestMessage = {
                 role: 'user',
@@ -63,8 +63,15 @@ const ConversationToolPage = () => {
 
         } catch (error: any) {
 
-            //  OPEN PRO MODEL
-            if (error?.response?.status === 403) upgradeToProModal.onOpen();
+            //  OPEN UpgerdeToProModalPro
+            if (error?.response?.status === 403) {
+
+
+                upgradeToProModal.onOpen();
+            } else {
+
+                toast.error("Something went wrong!");
+            }
 
         } finally {
 

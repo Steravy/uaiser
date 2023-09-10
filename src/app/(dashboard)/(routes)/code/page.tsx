@@ -20,6 +20,7 @@ import { useForm } from "react-hook-form";
 import ReactMarkdown from "react-markdown";
 import * as z from "zod";
 import { formSchema } from "./constants";
+import toast from "react-hot-toast";
 
 const CodeToolPage = () => {
 
@@ -64,7 +65,13 @@ const CodeToolPage = () => {
 
         } catch (error: any) {
             //  OPEN PRO MODEL
-            if (error?.response?.status === 403) upgradeToProModal.onOpen();
+            if (error?.response?.status === 403) {
+                
+                upgradeToProModal.onOpen();
+            } else {
+
+                toast.error("Something went wrong!");
+            }
         } finally {
 
             router.refresh();
