@@ -1,8 +1,9 @@
+import increaseUserApiUsageLimit from "@/providers/increase-api-usage-limit";
+import { isUserSubscribed } from "@/providers/subscription-details";
+import checkUserApiUsageLimit from "@/providers/user-api-usage-limit";
 import { auth } from "@clerk/nextjs";
 import { NextRequest, NextResponse } from "next/server";
 import Replicate from 'replicate';
-import increaseUserApiUsageLimit from "@/providers/increase-api-usage-limit";
-import checkUserApiUsageLimit from "@/providers/user-api-usage-limit";
 
 const replicate = new Replicate({
     auth: process.env.REPLICATE_API_TOKEN || ''
@@ -26,8 +27,10 @@ export async function POST(request: NextRequest) {
 
         //  CHECK USER API USAGE TO VERIFY IF SHOULD STILL USE THE APP WHILE IN FREE TRIAL
         const inFreeTrial = await checkUserApiUsageLimit();
+        // CHECK IF USER IS SUBSCRIBED
+        const isProMember = await isUserSubscribed();
 
-        if (!inFreeTrial) {
+        if (!inFreeTrial && !isProMember) {
             return new NextResponse("Your free trial has expired!", { status: 403, statusText: "FORBIDDEN" });
         }
 
@@ -41,8 +44,11 @@ export async function POST(request: NextRequest) {
             }
         );
 
-        //  INCRESEASE USER API USAGE
-        await increaseUserApiUsageLimit();
+        if (!isProMember) {
+
+            //  INCRESEASE USER API USAGE
+            await increaseUserApiUsageLimit();
+        }
 
         // RETURN RESPONSE FROM REPLICATE
         return NextResponse.json(output);
