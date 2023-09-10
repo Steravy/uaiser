@@ -12,9 +12,10 @@ const montserrat = Montserrat({ weight: "600", subsets: ["latin"] });
 
 interface SidebarProps {
     userApiUsageLimitCount: number;
+    isProMember: boolean;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ userApiUsageLimitCount }) => {
+const Sidebar: React.FC<SidebarProps> = ({ userApiUsageLimitCount, isProMember }) => {
 
     const pathname = usePathname();
 
@@ -55,7 +56,7 @@ const Sidebar: React.FC<SidebarProps> = ({ userApiUsageLimitCount }) => {
                     }
                 </div>
             </article>
-            <ApiUsageLimitCountDisplayer userApiUsageLimitCount={userApiUsageLimitCount} />
+            <ApiUsageLimitCountDisplayer userApiUsageLimitCount={userApiUsageLimitCount} isProMember={isProMember} />
         </article>
     )
 }

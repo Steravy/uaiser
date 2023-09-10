@@ -10,9 +10,10 @@ import { number } from 'zod';
 interface MobileSideBarProps {
 
     userApiUsageLimitCount: number;
+    isProMember: boolean;
 }
 
-const MobileSideBar: React.FC<MobileSideBarProps> = ({ userApiUsageLimitCount }) => {
+const MobileSideBar: React.FC<MobileSideBarProps> = ({ userApiUsageLimitCount, isProMember }) => {
 
     return (
 
@@ -25,7 +26,7 @@ const MobileSideBar: React.FC<MobileSideBarProps> = ({ userApiUsageLimitCount })
                         </Button>
                     </SheetTrigger>
                     <SheetContent className='p-0' >
-                        <Sidebar userApiUsageLimitCount={userApiUsageLimitCount} />
+                        <Sidebar userApiUsageLimitCount={userApiUsageLimitCount} isProMember={isProMember} />
                     </SheetContent>
                 </Sheet>
             </ClientWrapper>

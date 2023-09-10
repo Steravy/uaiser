@@ -10,12 +10,15 @@ import ClientWrapper from "./ClientWrapper";
 
 interface ApiUsageLimitCountDisplayerProps {
 
-    userApiUsageLimitCount: number
+    userApiUsageLimitCount: number;
+    isProMember: boolean;
 }
 
-const ApiUsageLimitCountDisplayer: React.FC<ApiUsageLimitCountDisplayerProps> = ({ userApiUsageLimitCount }) => {
+const ApiUsageLimitCountDisplayer: React.FC<ApiUsageLimitCountDisplayerProps> = ({ userApiUsageLimitCount = 0, isProMember = false }) => {
 
     const proModal = useUpgradeToProModal();
+
+    if (isProMember) return null;
 
     return (
 
