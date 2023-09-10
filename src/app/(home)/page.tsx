@@ -1,4 +1,5 @@
 import HomePageHeroSection from "@/components/HomePageHeroSection";
+import Testimonials from "@/components/Testimonials";
 import HomePageNavbar from "@/components/navbar/HomePageNavbar";
 import { cn } from "@/lib/utils";
 import { Montserrat } from "next/font/google";
@@ -17,6 +18,7 @@ const LandingPage = () => {
 
             <HomePageNavbar />
             <HomePageHeroSection />
+            <Testimonials />
 
         </section>
     )
