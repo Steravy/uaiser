@@ -10,9 +10,9 @@ const testimonials = [
         description: 'This best AI tool set i have found so far. I really love it.',
     },
     {
-        name: 'John Doe',
+        name: 'Jane Doe',
         avatar: 'J',
-        title: 'Software Developer',
+        title: 'Content Creator',
         description: 'This best AI tool set i have found so far. I really love it.',
     },
     {
@@ -22,9 +22,9 @@ const testimonials = [
         description: 'This best AI tool set i have found so far. I really love it.',
     },
     {
-        name: 'John Doe',
+        name: 'Jane Doe',
         avatar: 'J',
-        title: 'Software Developer',
+        title: 'Content Creator',
         description: 'This best AI tool set i have found so far. I really love it.',
     },
 ]
