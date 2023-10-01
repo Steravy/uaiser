@@ -38,7 +38,7 @@ const FooterNavLinks = (props: Props) => {
     return (
 
         <ClientWrapper>
-            <section className="flex flex-col justify-between gap-y-6" >
+            <section className="flex flex-col justify-between gap-y-3 md:gap-y-6" >
                 <article className="flex items-center justify-between w-full" >
                     <article className="flex items-center gap-x-4" >
                         <Link href='/' >

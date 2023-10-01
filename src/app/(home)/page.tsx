@@ -15,10 +15,10 @@ const LandingPage = () => {
     return (
 
         <section className={cn("h-screen", montserrat.className)} >
-
-            <HomePageNavbar />
-            <HeroSection />
-            <Footer />
+            
+                <HomePageNavbar />
+                <HeroSection />
+                <Footer />
 
         </section>
     )

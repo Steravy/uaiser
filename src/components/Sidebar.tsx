@@ -27,7 +27,7 @@ const Sidebar: React.FC<SidebarProps> = ({ userApiUsageLimitCount, isProMember }
                     <figure className="relative w-8 h-8 mr-4" >
                         <Image
                             alt="Uaiser Logo"
-                            src={"/images/logo.png"}
+                            src={"/images/logoII.svg"}
                             fill
                         />
                     </figure>
