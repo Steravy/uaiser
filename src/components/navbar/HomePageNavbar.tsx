@@ -22,16 +22,17 @@ const HomePageNavbar = (props: Props) => {
 
     return (
 
-        <header className="flex items-center w-full justify-center fixed">
-            <nav className="p-4 bg-transparent flex items-center justify-between w-full">
+        <header className="flex items-center w-full justify-center">
+            <nav className="max-w-[1700px] p-4 bg-transparent flex items-center justify-between w-full">
 
                 <Link href={"/"} className="flex items-center" >
                     <figure className="relative w-8 h-8 mr-4" >
                         <Image
                             alt="Uaiser Logo"
-                            src={"/images/logo.png"}
+                            src={"/images/logo.svg"}
                             fill
                             priority
+                            className="grayscale hover:animate-spin"
                         />
                     </figure>
                     <h1 className={cn("text-2xl font-bold text-white", montserrat.className)} >
