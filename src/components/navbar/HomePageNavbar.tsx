@@ -29,10 +29,10 @@ const HomePageNavbar = (props: Props) => {
                     <figure className="relative w-8 h-8 mr-4" >
                         <Image
                             alt="Uaiser Logo"
-                            src={"/images/logo.svg"}
+                            src={"/images/logoII.svg"}
                             fill
                             priority
-                            className="grayscale hover:animate-spin"
+                            className="grayscale hover:animate-spin hover:grayscale-0"
                         />
                     </figure>
                     <h1 className={cn("text-2xl font-bold text-white", montserrat.className)} >

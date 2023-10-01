@@ -1,5 +1,6 @@
 import HomePageHeroSection from "@/components/HomePageHeroSection";
 import Testimonials from "@/components/Testimonials";
+import Footer from "@/components/footer/Footer";
 import HeroSection from "@/components/hero-section/HeroSection";
 import HomePageNavbar from "@/components/navbar/HomePageNavbar";
 import { cn } from "@/lib/utils";
@@ -21,7 +22,7 @@ const LandingPage = () => {
             {/* <HomePageHeroSection /> */}
             <HeroSection />
             {/* <Testimonials /> */}
-
+            <Footer />
         </section>
     )
 }

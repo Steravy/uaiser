@@ -17,11 +17,11 @@ const HeroSection = (props: Props) => {
 
     return (
 
-        <section className="max-w-4xl lg:max-w-7xl overflow-x-hidden space-y-6 mx-auto flex flex-col md:flex-row items-center md:justify-between gap-x-6 p-4 px-5 lg:px-10  text-white">
+        <section className="max-w-4xl lg:max-w-6xl overflow-x-hidden space-y-6 lg:space-y-14 mx-auto flex flex-col md:flex-row items-center md:justify-between gap-x-6 p-4 px-5 lg:px-10  text-white">
 
             <article className="text-center md:text-start flex flex-col justify-center">
 
-                <h3 className="text-2xl md:text-3xl text-white/50 font-semibold tracking-wide mb-4" >
+                <h3 className="text-2xl md:text-3xl text-white/50 font-normal mb-4 hover:text-white/75 transition" >
                     Uaiser
                 </h3>
 
@@ -49,7 +49,7 @@ const HeroSection = (props: Props) => {
             </article>
 
             <article className=" ">
-                <figure className="w-[500px] lg:w-[630px] h-[500px] lg:h-[630px] relative mt-6 md:mt-0 md:-mr-8 lg:mr-0" >
+                <figure className="w-[500px] lg:w-[600px] h-[500px] lg:h-[600px] relative mt-6 md:mt-0 md:-mr-8 lg:mr-0" >
                     <Image
                         priority
                         src={"/images/ai_hero.avif"}
