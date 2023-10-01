@@ -85,7 +85,7 @@ const CodeToolPage = () => {
         <section>
             <Heading
                 title='Code Generator'
-                description="Genetaye code using descriptive text."
+                description="Generate code using descriptive text."
                 icon={Code}
                 iconColor="text-green-700"
                 bgColor="bg-green-700/10"
