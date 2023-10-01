@@ -23,7 +23,7 @@ const Sidebar: React.FC<SidebarProps> = ({ userApiUsageLimitCount, isProMember }
 
         <article className="h-full flex flex-col space-y-4 py-4 bg-[#111827] text-white ">
             <article className="flex-1 px-3 py-2" >
-                <Link href={"/dashboard"} className="flex items-center pl-3 mb-14" >
+                <Link href={"/"} className="flex items-center pl-3 mb-14" >
                     <figure className="relative w-8 h-8 mr-4" >
                         <Image
                             alt="Uaiser Logo"

@@ -51,4 +51,4 @@ const HomePageNavbar = (props: Props) => {
     )
 }
 
-export default HomePageNavbar
+export default HomePageNavbar;
