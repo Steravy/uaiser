@@ -18,7 +18,8 @@ const HomePageHeroSection = (props: Props) => {
             <article className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl space-y-5" >
 
                 <h1 className="" >
-                    The Best AI Tool For
+                    {/* The Best AI Tool For */}
+                    Our AI makes 
                 </h1>
 
                 <h3 className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-pink-600 text-3xl sm:text-4xl md:text-5xl lg:text-6xl" >

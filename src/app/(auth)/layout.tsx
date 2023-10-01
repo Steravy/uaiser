@@ -6,7 +6,7 @@ const AuthLayout = ({
 
     return (
 
-        <section className="flex items-center justify-center h-full bg-[#212225]" >
+        <section className="flex items-center justify-center h-full p-4 bg-[#212225]" >
             {children}
         </section>
     )

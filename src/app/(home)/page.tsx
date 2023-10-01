@@ -1,5 +1,6 @@
 import HomePageHeroSection from "@/components/HomePageHeroSection";
 import Testimonials from "@/components/Testimonials";
+import HeroSection from "@/components/hero-section/HeroSection";
 import HomePageNavbar from "@/components/navbar/HomePageNavbar";
 import { cn } from "@/lib/utils";
 import { Montserrat } from "next/font/google";
@@ -14,11 +15,12 @@ const LandingPage = () => {
 
     return (
 
-        <section className={cn("h-full", montserrat.className)} >
+        <section className={cn("h-screen", montserrat.className)} >
 
             <HomePageNavbar />
-            <HomePageHeroSection />
-            <Testimonials />
+            {/* <HomePageHeroSection /> */}
+            <HeroSection />
+            {/* <Testimonials /> */}
 
         </section>
     )
